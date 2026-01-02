@@ -249,6 +249,7 @@ After vetting the volunteers for their roles, role leads should make a final dec
 #### Contact Selected Shadows
 
 - [ ] Create a Slack Group with the selected shadows and send them a message.
+
 **Template:**
 ```markdown
 Welcome to the Kubernetes v1.35 Docs team! :k8s-heart: Beyond just shipping docs, this is a space for collaboration, growth, and fun. Looking forward to learning from each other and making this journey memorable.:kubernetes-intensifies:
@@ -261,6 +262,7 @@ We are an inclusive group so if there’s something you’re concerned about, or
 ```
 
 - [ ] Send a Slack message with the first step of onboarding tasks as a shadow.
+
 **Template:**
 ```markdown
 We’ll be collaborating on the v1.35 Docs over the next few months.
@@ -294,8 +296,8 @@ I’ll walk you through these tasks during our onboarding call.🤜🤛
 
 ### 1.6 Shadow Onboarding Meeting
 
-**Duration:** 30-60 minutes
-**Record:** Yes, share with team for reference
+- **Duration:** 30-60 minutes
+- **Record:** Yes, share with team for reference
 
 **Action Items:**
 - [ ] Schedule meeting using poll results
@@ -318,72 +320,54 @@ A responsibility tracker (spreadsheet or document) helps the Docs team distribut
 
 **Example:** [Docs Team Responsibility Sheet](https://docs.google.com/spreadsheets/d/1bij8ayB_yf8mPic1upcf13N5yHRF7HguIoYXLvU1Mss/edit?usp=sharing)
 
-### Update the website configuration ahead of the release
+--- 
 
-Update the main `hugo.toml` based on the version on the `main` branch. Open a PR for these changes against the `dev-[future release]` branch (which should already exist - this is a good check!)
+## Phase 2: Middle Steps (Weeks 3-8)
 
-```shell
-# Step 1
-# Do this on a fresh local clone OF YOUR FORK
-# It's OK to use SSH for the git URL if you know how to do that
-git clone https://github.com/yourGitHubUsername/website.git kubernetes-website
-cd kubernetes-website
-# Step 2
-# Add the upstream repo as a remote
-git remote add upstream https://github.com/kubernetes/website.git
+**Time Required:** ~2-5 hours per week
 
-git fetch upstream dev-[future release]
-git checkout --track upstream/dev-[future release]
-git checkout -b config-toml-[future release] # change for the release you're making, for example config-toml-1.21
-# Step 3
-# Edit hugo.toml to make the changes described above
-# save your changes
-git add hugo.toml
-git commit -m "Updated hugo.toml for [future release] release"
-# Step 4
-# Check things look right
-git status
-git remote -v
-# Step 5
-# Push this new branch to your fork
-git push origin config-toml-[future release]
-```
+The middle phase of the release cycle involves the Docs Lead and Shadows continuously tracking and reviewing incoming documentation PRs.
 
-Now create a pull request that targets the next release (here: `dev-1.21`) **not** `main`.
+### 2.1 Enhancement Tracking
 
+#### Set Up Tracking System
 
-## Middle Steps (Weeks 3-8)
-The middle weeks of the launch are where the Docs Lead and Docs Lead Shadows track and review incoming PRs.
+Track PRs based on the Enhancements (KEP) board. Keep the Enhancement tracking board up-to date with review progress and merge status for each documentation PR. For example: [Kubernetes Enhancements tracking board (v1.35 release)](https://github.com/orgs/kubernetes/projects/229/views/1)
 
-### Track PRs
+> [!Note]
+> ⚠️ **Wait until after Enhancement Freeze** to avoid dynamic data issues.
 
-Track PRs based on the enhancement (KEP) spreadsheet.
+After Enhancement Freeze:
+- [ ] Assign enhancements evenly across Shadows
+- [ ] Group by enhancement owner or SIG when possible
 
-Keep the enhancement tracking spreadsheet up to date with review progress and merge status for each documentation PR. For example: [Kubernetes Enhancements OSS tracking board (1.21 release)](http://bit.ly/k8s121-enhancements)
+#### Track PR Status
 
-⚠️ Assign the enhancements evenly across your Shadows after the enhancement freeze. Assigning shadows before the
- enhancement freeze will cause unexpected behavior in the tracking spreadsheet due to frequent updates to dynamic data.
- (Tip: When assigning enhancements, try grouping enhancement owners and/or by SIGs)
-  - You and your Shadows will be responsible for tracking whether the enhancement:
-    - **has docs:** Actively has docs in place on Kubernetes website or in flight
-    - **needs docs:** Actively needs docs to support the enhancement in the [future-release]
-    - **unknown:** After reviewing the KEP, it is unclear if this needs docs or not
-    - **not required:** The KEP doesn't change anything that requires reflection in Kubernetes website
-  - You and your Shadows will also be responsible for marking whether the docs are:
-    - **Complete (Merged):** PR on the dev-[future-release] is done and merged
-    - **No PR:** No PR is open (helpful for dead line tracking)
-    - **Late:** No PR is open AND it's passed the deadline
-    - **Draft (PR):** PR is open but content isn't ready for review
-    - **Ready for Review (PR):** PR is open but content IS ready for review
-- ⚠️ Make sure that every docs PRs for the release have the correct base and set the correct Milestone. For example, enhancement PRs for version 1.21 need abase branch of `dev-1.21` and the Milestone set to `1.21`.
+For each enhancement, determine and track:
 
-The spreadsheet can be used to track the current health of the docs for release. For example:
+| Status | Description | Action Required |
+|--------|-------------|----------------|
+| **Has Docs** | Docs exist or in flight | Monitor PR progress |
+| **Needs Docs** | Docs required for [future release] | Ensure PR opened by deadline |
+| **Unknown** | Unclear if docs needed after KEP review | Contact KEP owner for clarification |
+| **None Required** | No docs changes needed | Mark as complete |
 
-![Sample spreadsheet](pics/enhancement-tracking.png)
+#### Track PR Progress
 
-On the "Enhancement Stats" tab, a table was created to track the Doc Stats and then based on their category, in the other tab, assign a status "Green / Yellow / Red."
+| PR Status | Description | Tracking |
+|-----------|-------------|----------|
+| **Complete (Merged PR)** | PR merged to `dev-[future-release]` | ✅ Done |
+| **PR Ready for Review** | Content ready, awaiting review | 👀 Monitor review progress |
+| **Draft (PR)** | PR open but not review-ready | 📝 Track towards deadline |
+| **No PR** | No PR opened | 📭 Send reminders |
+| **No docs needed** | No Docs Needed for the Enhancement | ⏰ Escalate |
 
-This is very helpful for weekly reports and managing deadlines
+#### Documentation PR Verification Checklist
+
+For all enhancement PRs, verify:
+- [ ] Base branch is `dev-[future-release]`
+- [ ] Milestone is set to `[future release]` (e.g., `1.35`)
+- [ ] The Docs PR field in the Enhancement Board is populated with the PR link.
 
 ### Communicate major deadlines
 
