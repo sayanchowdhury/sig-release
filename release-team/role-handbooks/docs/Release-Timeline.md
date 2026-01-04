@@ -649,69 +649,38 @@ Be congnizant of the status of the release blog post as merging and publishing t
 
 ### 3.1 Coordinate with SIG Docs for Release Day Support
 
-#### Purpose
-Confirm SIG Docs support availability for release day tasks and ensure generated documentation is ready.
+**What:** Confirm SIG Docs support availability for release day tasks and ensure generated documentation is ready.
 
-#### Action Items
+**Action Items:**
+- [ ] Join upcoming SIG Docs meeting (or reach out on [#sig-docs](https://kubernetes.slack.com/messages/sig-docs) if meeting is missed)
+- [ ] Send coordination message to SIG Docs chairs/leads
+- [ ] Confirm release day support availability
+- [ ] Verify generated documentation readiness
 
-- [ ] **Join upcoming SIG Docs meeting** (or reach out on [#sig-docs](https://kubernetes.slack.com/messages/sig-docs) if meeting is missed)
-- [ ] **Send coordination message to SIG Docs chairs/leads**
-- [ ] **Confirm release day support** availability
-- [ ] **Verify generated documentation readiness**
+**Message Template:** [templates/sig-docs-coordination.md](templates/sig-docs-coordination.md)
 
-**Template Message for #sig-docs:**
-
-> Hi @sig-docs-leads :wave:
->
-> **v[future release] Release Coordination**
->
-> The v[future release] release is scheduled for **[Day], [Date] at [Time] [Timezone]**.
->
-> **Need from SIG Docs:**
-> 1. **Release day support** - Who can help with:
->    - Netlify configuration updates
->    - Release blog post publication
->
-> 2. **Generated docs status** - Please confirm these are ready:
->    - Kubernetes API reference
->    - kubectl documentation
->    - Components documentation
->
-> Please let me know by [Date] if you have any concerns or need anything from the release docs team.
->
-> Thank you! 🙏
+---
 
 ### 3.2 Verify SIG Cluster Lifecycle (kubeadm) Documentation
 
-#### Purpose
-Ensure kubeadm-related documentation is complete and ready for the release.
+**What:** Ensure kubeadm-related documentation is complete and ready for the release.
 
-#### Action Items
+**Action Items:**
+- [ ] Validate kubeadm documentation completeness
+- [ ] Send verification message to [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 
-- [ ] **Validate kubeadm documentation** completeness
-- [ ] **Send verification message** to [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+**Message Template:** [templates/sig-cluster-lifecycle-verification.md](templates/sig-cluster-lifecycle-verification.md)
 
-**Template Message:**
-
-> Hi @sig-cluster-lifecycle :wave:
->
-> v[future release] Docs Lead here. Quick check: Can someone confirm all kubeadm documentation (upgrade guides, installation docs, changes) is in place for the v[future release] release on [Date]?
->
-> Thanks!
+---
 
 ### 3.3 ⚠️ Final Release Notes Review and Cleanup (CRITICAL TASK)
 
 > [!Important]
 > This is a **Docs Lead responsibility** and a **time-intensive task**. Start this process as early as possible (after last Release Note PR is merged), as it can take considerable time depending on the number of release note PRs throughout the cycle.
 
-#### Purpose
-Perform a comprehensive final review of all release notes to ensure they conform to the [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/) and maintain consistent quality.
+**What:** Perform a comprehensive final review of all release notes to ensure they conform to the [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/) and maintain consistent quality.
 
-#### Process Overview
-
-This is a **manual process** to review and clean up the accumulated release notes from the entire release cycle.
-
-**Step-by-Step Instructions:**
+**Process:** This is a manual process to review and clean up the accumulated release notes from the entire release cycle.
 
 1. **Fork and Setup**
    ```bash
@@ -721,7 +690,7 @@ This is a **manual process** to review and clean up the accumulated release note
    cd sig-release
    
    # Create a new branch for final release notes review
-   git checkout -b [your-username]/v[future-release]-final-release-notes-review
+   git checkout -b [YOUR-USERNAME]/v[future-release]-final-release-notes-review
    ```
 
 2. **Review Release Notes Files**
@@ -743,7 +712,7 @@ This is a **manual process** to review and clean up the accumulated release note
    ```bash
    git add releases/release-[future-release]/release-notes/
    git commit -m "Final review and cleanup of v[future-release] release notes"
-   git push origin [your-username]/v[future-release]-final-release-notes-review
+   git push origin [YOUR-USERNAME]/v[future-release]-final-release-notes-review
    ```
 
 5. **Open PR for Peer Review**
@@ -754,14 +723,15 @@ This is a **manual process** to review and clean up the accumulated release note
      - SIG Docs reviewers
      - Release Team Lead
 
-**Example PRs:**
-- [Example: v1.35 Final Release Notes Review](https://github.com/kubernetes/sig-release/pull/2928)
+**Example PR:** [v1.35 Final Release Notes Review](https://github.com/kubernetes/sig-release/pull/2928)
 
-### Curate the External Dependencies section
+---
+
+### 3.4 Curate the External Dependencies Section
 
 A "Dependencies" section should be curated which outlines how external dependency versions have changed since the last release. These changes are currently [automatically aggregated](https://github.com/kubernetes/community/issues/2234), but should still be manually validated for correct content and formatting.
 
-### Update Releases Page (the week before the release)
+### 3.5 Update Releases Page (the week before the release)
 
 Create a PR against the dev-[future-release] branch to add an entry for [future-release] on https://kubernetes.io/releases.
 
