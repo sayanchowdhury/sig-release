@@ -4,14 +4,14 @@ Use this template to announce the k/website repository freeze 24 hours before th
 
 **When to use:** 24 hours before release day
 
-**Where to post:** #sig-docs, #kubernetes-contributors, and #kubernetes-new-contributors Slack channels
+**Where to post:** #sig-docs and #kubernetes-new-contributors Slack channels
 
 ---
 
 ## Message Template
 
 ```markdown
-:megaphone: Hi everyone! 👋
+Hi everyone! 👋
 
 We're on track to release v[future release] on [Day of Week]! 🎉
 
@@ -31,7 +31,7 @@ Thank you for your patience and support during the freeze! Please reach out if y
 ## Example
 
 ```markdown
-:megaphone: Hi everyone! 👋
+Hi everyone! 👋
 
 We're on track to release v1.35 on Wednesday! 🎉
 
