@@ -872,112 +872,174 @@ This PR can be merged on release day by the Docs lead.
 - [ ] Notify PR owners of milestone changes
 
 
-## Release Day
-⚠️  Everything in this section is important. It's OK to ask for advice if you're not sure.
+## Phase 5: Release Day
 
-This process takes approximately 4 hours.
+⚠️  **CRITICAL PHASE** - Everything in this section is time-sensitive. Ask for help if needed.
 
-Coordinate with the Release Team for the exact timing. Typically the release is 'officially' built, then you merge the docs, and then you approve the blog post to "make it official". For 1.21, we merged docs at 11:00 am PDT and the blog was merged at 11:30 am PDT - marking the release "complete".
+**Time Required:** ~4 hours
 
-### Publish final Release Notes
+**Coordination:** Work with the Release Team for exact timing. Typical sequence:
+1. Release is 'officially' built by Release Management
+2. Docs Lead merges the docs
+3. Docs Lead publishes the blog post (marks release "official")
 
-- Final version of release notes committed for release
-- Close the _Known Issues_ Issue and make sure everything has been resolved
-- Release Notes must be merged into master prior to the release. If this is not done the release will include the latest draft.
-- Keep an eye on the #release-notes channel for any requests for any questions, edits or missed release notes.
+**Example Timing:** v1.21 docs merged at 11:00 AM PDT, blog published at 11:30 AM PDT
 
-### Merge the integration branch
+---
 
-Once release management team has successfully cut the release, Docs Lead will merge the [integration branch] manually using
-the `Create a merge commit` method of merging.
-Do not delete the dev-[future-release] when GitHub asks.
+### 5.1 Publish Final Release Notes
 
-- Verify that the pull request has an `approved` and an `lgtm` label.
-- Remove the hold from the on-hold integration PR when needed and merge into `main`.
-- Check the [Netlify build logs](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) to make sure the
-site builds successfully.
-- Once the site is up, validate the docs by checking the navigation, version dropdown, [generated APIs](https://kubernetes.io/docs/reference/),
-[documentation version](https://kubernetes.io/docs/home/supported-doc-versions/), and random clicks.
-> Note: Make a note of the commit hash of the integration branch merge
+**What:** Commit the final version of release notes (completed in [Section 3.3](#33-️-final-release-notes-review-and-cleanup)) to the release.
 
-> Note: In 1.28 the Docs Release Team had failing CLA checks while merging the integration branch, in which case they made a decision to not change history at all. Rather, they merged the integration branch even with failing CLA checks since the commit did pass CLA when it was merged to `dev-1.28`, and the docs team did not want to fix this by altering history due to the side effects of doing so.
+**Action Items:**
+- [ ] Ensure final release notes PR (from [Section 3.3](#33-️-final-release-notes-review-and-cleanup)) is merged
+- [ ] Verify release notes committed for release
+- [ ] Close the _Known Issues_ Issue and confirm all issues resolved
+- [ ] Confirm Release Notes merged into master branch
 
-### Publish the release blog post
+**Important:**
+- ⚠️ Release Notes **must** be merged into master prior to the release. If not done, the release will include the latest draft.
+- Monitor #release-notes channel for any last-minute requests, edits, or missed release notes
 
-After validation, merge the blog post manually using the `Create a merge commit` method of merging.
+---
 
-- Verify that the pull request has an `approved` and an `lgtm` label.
-- Remove the hold from blog post when needed and merge into `main`.
-- Check the [Netlify build logs](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) to make sure the
-site builds successfully.
-- Navigate to the [blog page](https://kubernetes.io/blog/) to validate that release blog post is available.
-- Once confirmed, notify the release team with the link to the blog post. This will allow the Release Lead to send out
-a notification of the release to the Kubernetes Dev mailing list.
+### 5.2 Merge the Integration Branch
 
-### Create release with tag
+**What:** Merge the [integration branch] (created in [Section 1.2](#12-update-release-team--access-control)) into `main` after Release Management cuts the release.
 
-- Tag the commit hash before the [integration branch] as the final commit for [current release].
+**When:** After Release Management confirms the release is officially cut.
+
+**Action Items:**
+- [ ] Verify PR has `approved` and `lgtm` labels
+- [ ] Remove `/hold` label from the integration PR
+- [ ] Merge into `main` manually using "Create a merge commit" method
+- [ ] ⚠️ **Do NOT delete** `dev-[future-release]` branch when GitHub asks
+- [ ] 📝 Note the commit hash of the integration branch merge (needed for tagging)
+
+**Verification Steps:**
+- [ ] Check [Netlify build logs](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) for successful build
+- [ ] Work with SIG Docs to verify the site deployment
+- [ ] Validate docs functionality:
+  - Navigation works correctly
+  - Version dropdown displays properly
+  - [Generated APIs](https://kubernetes.io/docs/reference/) are accessible
+  - [Documentation version](https://kubernetes.io/docs/home/supported-doc-versions/) is correct
+  - Random page clicks work as expected
+
+> **Note:** In v1.28, the Docs team encountered failing CLA checks during integration branch merge. Since the commit had passed CLA when merged to `dev-1.28`, they chose not to alter history due to potential side effects. Document any similar issues if they occur.
+
+### 5.3 Publish the Release Blog Post
+
+**What:** Merge the release blog post (prepared by Comms team) to officially announce the release.
+
+**When:** After integration branch is validated and merged successfully.
+
+**Action Items:**
+- [ ] Verify PR has `approved` and `lgtm` labels
+- [ ] Remove `/hold` label from blog post PR
+- [ ] Merge into `main` manually using "Create a merge commit" method
+
+**Verification Steps:**
+- [ ] Check [Netlify build logs](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) for successful build
+- [ ] Navigate to [kubernetes.io/blog](https://kubernetes.io/blog/) to confirm blog post is live
+- [ ] Verify blog post displays correctly
+
+**Final Action:**
+- [ ] Notify Release Team with link to published blog post
+- [ ] This enables Release Lead to send official release notification to Kubernetes Dev mailing list
+
+---
+
+### 5.4 Create Release with Tag
+
+**What:** Tag commit hashes to create snapshots for [current release] (final) and [future release] (initial). Ask for #sig-docs help if needed.
+
+**Tags to Create:**
+- Tag the commit hash before the [integration branch] as the final commit for [current release]
 - Tag the commit hash of the [integration branch] as the initial commit of the [future release]
 
-> Note: This can be done at any time post-release.
-> You should have kept track of the last commit hash of the release branch, `release-[current release]` and the commit hash of the integration branch merge. The following steps will confirm the commit hashes.
+> **Note:** This can be done at any time post-release. You should have tracked the last commit hash of `release-[current release]` and the commit hash of the integration branch merge. The following steps will confirm the commit hashes.
 
-```shell
-git clone https://github.com/kubernetes/website/
-cd website
-git checkout main
-```
-```
-Switched to branch 'main'
-Your branch is up to date with 'origin/main'.
-```
-Confirm the commit hash before the [integration branch]:
-```shell
-git show <merge commit of integration branch>^1
-```
-The following example is from the 1.21 release:
-  - It was noted that the last commit hash of the `release-1.20` branch is 6d252624b21452bcf6c22f156cccd316111204d4 from PR 2738
-  - The commit hash of the integration branch merge, which is the first commit of 1.21, is 969a3db92326746a94e2eb4449fd60f25d9151b8.
-```shell
-git show 969a3db92326746a94e2eb4449fd60f25d9151b8^1
+**Process:**
 
-commit 6d252624b21452bcf6c22f156cccd316111204d4 (origin/release-1.20)
-Merge: d1c650d2a 5767f39fd
-Author: Kubernetes Prow Robot <k8s-ci-robot@users.noreply.github.com>
-Date:   Wed Apr 7 07:53:53 2021 -0700
+1. **Setup and Checkout**
+   ```shell
+   git clone https://github.com/kubernetes/website/
+   cd website
+   git checkout main
+   ```
+   ```
+   Switched to branch 'main'
+   Your branch is up to date with 'origin/main'.
+   ```
 
-    Merge pull request #27387 from Arhell/label
+2. **Confirm Commit Hash**
+   ```shell
+   git show <merge commit of integration branch>^1
+   ```
 
-    [ja] updated labels for cli command in the PHP Guestbook tutorial
-```
-Proceed with tagging the commit hashes:
-```shell
-git tag -a snapshot-final-v1.20 6d252624b -m "Release 1.20 final snapshot"
-git tag -a snapshot-initial-v1.21 969a3db92 -m "Release 1.21 initial snapshot"
-git push --tags origin main
-```
+   **Example from v1.21 release:**
+   - Last commit of `release-1.20`: `6d252624b21452bcf6c22f156cccd316111204d4` from PR 2738
+   - Integration branch merge commit (first commit of v1.21): `969a3db92326746a94e2eb4449fd60f25d9151b8`
+   
+   ```shell
+   git show 969a3db92326746a94e2eb4449fd60f25d9151b8^1
+   
+   commit 6d252624b21452bcf6c22f156cccd316111204d4 (origin/release-1.20)
+   Merge: d1c650d2a 5767f39fd
+   Author: Kubernetes Prow Robot <k8s-ci-robot@users.noreply.github.com>
+   Date:   Wed Apr 7 07:53:53 2021 -0700
+   
+       Merge pull request #27387 from Arhell/label
+   
+       [ja] updated labels for cli command in the PHP Guestbook tutorial
+   ```
 
-After creating the tags, you can create a release based off of a tag very easily. Follow the naming conventions as done before and update: https://github.com/kubernetes/website/releases
+3. **Create and Push Tags**
+   ```shell
+   git tag -a snapshot-final-v1.20 6d252624b -m "Release 1.20 final snapshot"
+   git tag -a snapshot-initial-v1.21 969a3db92 -m "Release 1.21 initial snapshot"
+   git push --tags origin main
+   ```
 
-- Navigate to the [k/website releases page](https://github.com/kubernetes/website/releases)
-- Click "Draft a new release"
-- Enter the snapshot initial version tag in the "tag version" box
-- Enter "snapshot-initial-v1.20: Release 1.20" as release title and "Release 1.20 initial snapshot" as the description.
-- Click "Publish release"
+4. **Create GitHub Release**
 
-> Note: 1.20 should be replaced with the [future release]
+   After creating the tags, create a release based off of the tag. Follow naming conventions and update: https://github.com/kubernetes/website/releases
+   
+   - [ ] Navigate to [k/website releases page](https://github.com/kubernetes/website/releases)
+   - [ ] Click "Draft a new release"
+   - [ ] Enter the snapshot initial version tag in the "tag version" box
+   - [ ] Enter "snapshot-initial-v1.20: Release 1.20" as release title
+   - [ ] Enter "Release 1.20 initial snapshot" as description
+   - [ ] Click "Publish release"
 
-### Unfreeze Kubernetes website
+   > **Note:** Replace 1.20 with the [future release] version
 
-Unfreeze the k/website repo as done earlier (remove the `tide/merge-blocker` label and close issue).
+---
 
-Afterwards, submit an unfreeze announcement following our [protocols](#communicate-major-deadlines)
+### 5.5 Unfreeze Kubernetes Website
 
-### Close the [future release] milestone
+**What:** Remove the freeze on k/website repo to allow normal PR merges to resume.
 
-- Merge the 4 config.toml's created as part of the sunsetting docs.
-  - Remove hold from the configuration PRs to allow merge automatically by Prow.
-- Find the open milestone for [future release] and close it. ⚠️ Be careful not to delete it.
+**Action Items:**
+- [ ] Remove `tide/merge-blocker` label from freeze issue
+- [ ] Close the freeze issue
+- [ ] Submit unfreeze announcement following [communication protocols](#communicate-major-deadlines)
+
+---
+
+### 5.6 Close the [future release] Milestone
+
+**What:** Finalize the release by merging configuration PRs and closing the milestone.
+
+**Action Items:**
+- [ ] Merge the 4 `hugo.toml` configuration PRs (created in [Section 4.1](#41-prepare-configuration-prs-early-in-week))
+  - Remove `/hold` label from each PR to allow Prow to merge automatically
+- [ ] Find the [future release] milestone
+- [ ] Close the milestone
+- [ ] ⚠️ **Be careful NOT to delete it** - only close it
+
+---
 
 ## Same day or Day After Release - Verification, Cleanup, and Handoff
 These steps should be done after the launch. They require approximately 4 hours of work.
