@@ -693,29 +693,21 @@ Be congnizant of the status of the release blog post as merging and publishing t
    git checkout -b [YOUR-USERNAME]/v[future-release]-final-release-notes-review
    ```
 
-2. **Review Release Notes Files**
+2. **Review and Edit Release Notes Files**
    - Navigate to `releases/release-[future-release]/release-notes/`
-   - Review both files:
-     - `release-notes-draft.json`
-     - `release-notes-draft.md`
+   - Review and edit both files: `release-notes-draft.json` and `release-notes-draft.md`
+   - Ensure conformance to [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
+   - Check: consistent tone, grammar, clarity, appropriate technical detail
+   - **⚠️ Keep both files in sync with identical changes**
 
-3. **Edit and Clean Up**
-   - Ensure all content conforms to the [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
-   - Check for:
-     - Consistent language and tone
-     - Proper grammar and spelling
-     - Clear, concise descriptions
-     - Appropriate technical detail level
-   - **⚠️ Make sure to keep both files in sync with identical changes** (`release-notes-draft.json` AND `release-notes-draft.md`)
-
-4. **Commit and Create PR**
+3. **Commit and Create PR**
    ```bash
    git add releases/release-[future-release]/release-notes/
    git commit -m "Final review and cleanup of v[future-release] release notes"
    git push origin [YOUR-USERNAME]/v[future-release]-final-release-notes-review
    ```
 
-5. **Open PR for Peer Review**
+4. **Open PR for Peer Review**
    - Create PR against `kubernetes/sig-release` repository
    - Title: `Final review and cleanup of v[future-release] release notes`
    - Request review from:
@@ -730,6 +722,8 @@ Be congnizant of the status of the release blog post as merging and publishing t
 ### 3.4 Curate the External Dependencies Section
 
 A "Dependencies" section should be curated which outlines how external dependency versions have changed since the last release. These changes are currently [automatically aggregated](https://github.com/kubernetes/community/issues/2234), but should still be manually validated for correct content and formatting.
+
+---
 
 ### 3.5 Update Releases Page (the week before the release)
 
@@ -749,165 +743,137 @@ The following fields are required:
 Have a Release Manager lgtm the dates on the PR.
 This PR can be merged on release day by the Docs lead.
 
-## Release Week (Week 12)
-⚠️  Everything in this section is important. It's OK to ask for advice if you're not sure.
+## Phase 4: Release Week (Week 12)
 
-### Update the site configuration files for previous releases
+⚠️  **CRITICAL PHASE** - Everything in this section is time-sensitive. Ask for help if needed.
 
-Working from your fork of the `kubernetes/website` repository, update the `config.toml` files for the 4 previous releases. You need to open 4 separate PRs, because each release has its own `release-` branch.
+**Time Required:** ~6-8 hours across the week
 
-For the immediately previous release, there will not be a `release-[previous-release]` branch, so you should open the pull request updating the site configuration for the previous release targeting `main` and update the base branch to `release-[previous-release]` once you have created the `release-[previous-release]` branch.
+### 4.1 Prepare Configuration PRs (Early in Week)
 
-See this for example (1.29 was the "future release"):
-* 1.25 https://github.com/kubernetes/website/pull/44302
-* 1.26 https://github.com/kubernetes/website/pull/44301
-* 1.27 https://github.com/kubernetes/website/pull/44299
-* 1.28 https://github.com/kubernetes/website/pull/44298
+**What:** Update `hugo.toml` configuration for 4 previous releases + `dev-[future-release]` branch.
 
-Changes required:
-- Set `latest` to the [future release] version
-- Update `githubbranch` and `fullversion` (if present) to the latest patched version of the corresponding release
-- Update the list of versions to include the [future release] and remove the oldest release
+**Action Items:**
+- [ ] Create 4 separate PRs for previous releases (each has own `release-` branch)
+- [ ] Create 1 PR for `dev-[future-release]` branch
+- [ ] Add `/hold` label to all configuration PRs
+- [ ] ⚠️ **DO NOT MERGE** any configuration PRs until after release (use `/hold` label to prevent accidental merges)
+
+**Required Changes:**
+- Set `latest` to [future release] version
+- Update `githubbranch` and `fullversion` to latest patch versions (refer to [Upcoming Monthly Releases](https://kubernetes.io/releases/patch-releases/#upcoming-monthly-releases) for version numbers)
+- Update versions list (add [future release], remove the oldest release)
 - Set `deprecated` to `true`
-- For each previous release, update the patch version to the latest patch version available
 
-Here is an example of the steps taken to update the release 1.28 config.toml for the future release 1.29, as well as the [PR](https://github.com/kubernetes/website/pull/44298)
+**Detailed Instructions:** See [how-tos/runbooks.md](how-tos/runbooks.md) for complete git workflow
 
-```shell
-git remote add upstream https://github.com/kubernetes/website.git && git remote set-url --push upstream no_push
-git fetch upstream main
-git pull --ff-only
-# make necessary updates to hugo.toml at this point
-git checkout -b update-release-1.28-hugo.toml
-git add .
-git commit -m "Updates v1.28 hugo.toml for release v1.29"
-git push origin update-release-1.28-hugo.toml
-Go to your fork in a browser: https://www.github.com/{YOUR_USER}/website
-Submit a PR against upstream `main` from your fork's branch `update-release-[previous-release]-hugo.toml`. The day before the release, once you have created the `release-[previous-release]` branch, change the base branch for this PR from `main` to `release-[previous-release]`
-```
+**Example PRs:**
+- v1.29: [1.25](https://github.com/kubernetes/website/pull/44302), [1.26](https://github.com/kubernetes/website/pull/44301), [1.27](https://github.com/kubernetes/website/pull/44299), [1.28](https://github.com/kubernetes/website/pull/44298)
+- v1.35: [1.31](https://github.com/kubernetes/website/pull/53650), [1.32](https://github.com/kubernetes/website/pull/53651), [1.33](https://github.com/kubernetes/website/pull/53652), [1.34](https://github.com/kubernetes/website/pull/53654)
 
-Here is an example of the steps taken to update the release 1.27 config.toml for the future release v1.29, as well as the [PR](https://github.com/kubernetes/website/pull/44299)
+---
 
-```shell
-git fetch upstream release-1.27
-git checkout --track upstream/release-1.27
-# make necessary updates to hugo.toml at this point
-git checkout -b update-release-1.27-hugo.toml
-git add .
-git commit -m "Updates v1.27 hugo.toml for release v1.29"
-git push origin update-release-1.27-hugo.toml
-In this case, a PR is submitted against `release-1.27` from the fork's branch `update-release-1.27-hugo.toml`.
-```
+### 4.2 Notify Localization Teams
 
-⚠️  DO NOT MERGE **ANY** OF THE CONFIGURATION PULL REQUESTS UNTIL THE RELEASE HAS OCCURRED
+**What:** Inform localization teams about repo freeze and timeline.
 
-### Update the site configuration files for future release
+**Action Items:**
+- [ ] Post update to GitHub discussion created in [Phase 1 (Section 1.3)](#13-introduce-yourself-to-localization-teams)
+- [ ] Confirm all branches are up-to-date (main, dev-[future-release])
 
-The future release branch site configuration also needs to be updated to reflect the latest patch versions of the past releases.
-Create a PR against the `dev-[future-release]` branch to update the `config.toml` file that matches the
-[PRs for previous releases](#update-the-site-configuration-files-for-previous-releases).
+**Message Template:** [templates/localization-teams-notification.md](templates/localization-teams-notification.md)
 
-### Inform localization teams
+---
 
-Let localization teams know about the k/website repo freeze and the tentative timeline(s) for important dates with a comment to the GitHub discussion created earlier in the release cycle.
+### 4.3 Day Before Release - Pre-Release Checklist
 
-> Hello localization team leads! I don't think any action is required from you, but I wanted to let you know that we are on track for the release on April 8, 2021 and all Kubernetes website branches are up to date (main, dev-1.21). Let me know if I can help with anything! Thanks!
+⚠️  **24 HOURS BEFORE RELEASE**
 
-### Day before Release Day
-⚠️  Everything in this section is important. It's OK to ask for advice if you're not sure.
+#### Step 1: Request Write Access
 
-#### Request for temporary write access to the website repo
+⚠️ **Why needed:** Write access is required to freeze the website repo and to complete tasks during release day.
 
-Create a PR against [kubernetes/org](https://github.com/kubernetes/org) repo to add current Docs Lead to the
-[website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) team e.g.,
-[PR to org repo](https://github.com/kubernetes/org/pull/2364)
+- [ ] Create PR to add Docs Lead to [website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)
+- [ ] Assign to [SIG Docs chairs](https://github.com/kubernetes/community/tree/master/sig-docs#chairs)
+- [ ] Get approval before proceeding
+- [ ] Disable push to upstream: `git remote set-url --push upstream no_push`
 
-Assign PR to current [SIG Docs chairs](https://github.com/kubernetes/community/tree/master/sig-docs#chairs) for approval.
+**Example PR:** [Add Docs Lead to website-maintainers](https://github.com/kubernetes/org/pull/2364)
 
-⚠️  write access is required to freeze the website repo and to complete tasks during the release day
+> **Why disable push?** With elevated write access, this safety measure prevents accidentally pushing commits directly to the `kubernetes/website` repository instead of your fork. All changes should go through your fork first for PR review.
 
-⚠️  With elevated access, make sure you are not accidentally pushing to upstream by disabling `git push` command against upstream repo.
-```
-git remote set-url --push upstream no_push
-```
-> Note: Temporary write access to the website repo is required for the following tasks. Notify a SIG Docs chair to review and approve the PR before proceeding to the next step.
+#### Step 2: Freeze Website
+- [ ] Submit issue with `tide/merge-blocker` label (ask SIG Docs chair if needed)
+- [ ] Post freeze announcement to #sig-docs and #kubernetes-new-contributors
 
-#### Freeze Kubernetes website
+**Example Freeze Issue:** [Freeze k/website for v1.35](https://github.com/kubernetes/website/issues/53638)
 
-24 hours before the release, freeze the [k/website](https://github.com/kubernetes/website) repo: ⚠️  no PRs should be allowed to merge **AT ALL** until the release PR has successfully merged. There is an exception for your release PRs, which will bypass that restriction.
+**Announcement Template:** [templates/website-freeze-announcement.md](templates/website-freeze-announcement.md)
 
-- Submit an issue with `tide/merge-blocker` label. Depending upon your permissions, a [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) can assist you with adding the label. You may need to add the label manually by selecting the gear icon in the labels section on the left-hand side of the issue after you have opened it, rather than using a `tide` command.
+#### Step 3: Create Release Branch
 
-- Submit a freeze announcement following our [protocols](#communicate-major-deadlines) to #sig-docs and #kubernetes-contributors
+**What:** Creating the release branch lets you snapshot the current docs in a new branch `release-[current-release]`. For example: For the 1.21 release cycle where `main` represents v1.20, you would create `release-1.20`.
 
-#### Create the release branch
+**Steps:**
+- [ ] Go to [k/website](https://github.com/kubernetes/website)
+- [ ] Click `main` branch dropdown
+- [ ] Type `release-[current-release]` (e.g., `release-1.20`)
+- [ ] Click "Create branch from main"
+- [ ] 📝 Note the last commit hash (needed for tagging)
 
-Creating the release branch lets you snapshot the current docs in a new branch, `release-[current release]`, after merging `dev-[future release]`. For example: For the 1.21 release cycle where `main` represents `v1.20`, you would create `release-1.20`.
+**Visual Guide:** See ![New branch creation](pics/new-branch.png) for GitHub UI reference
 
 > **Note:** Creating a branch requires someone with write access to `k/website`, such as a [SIG Docs co-chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
 
-- From [k/website](https://github.com/kubernetes/website) click on `main` branch.
-- Type the name of the release branch.
-- **click** Create branch `release-x.yy` from `main`
+> **Troubleshooting:** During the v1.29 release process, it was discovered that someone during the v1.28 release cycle had erroneously created and abandoned a `release-1.28` branch. This left the v1.29 Docs team with a release branch that was 2,330 commits behind `main`, rendering it unusuable as a release branch. If this occur again, any repo admin or org admin has the necessary permissions to delete the branch. Reach out to the [SIG Docs chairs](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) to obtain their agreement that deletion is necessary. You may also be able to simply fast-forward the branch.
 
-![](pics/new-branch.png)
+#### Step 4: Coordinate Netlify Update
 
-> **Note:** During the v1.29 release process, it was discovered that someone during the v1.28 release cycle had erroneously created and abandoned a `release-1.28` branch. This left the v1.29 Docs team with a release branch that was 2,330 commits behind `main`, rendering it unusuable as a release branch. Should this issue arise again, any repo admin or org admin has the necessary permissions to delete the branch. Reach out to the [SIG Docs chairs](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) to obtain their agreement that deletion is necessary. You may also be able to simply fast-forward the branch.
+**What:** Update Netlify configuration to create a site for the `release-[current-release]` branch snapshot (e.g., https://v1-20.docs.kubernetes.io).
 
-#### Update Netlify
+**Action Items:**
+- [ ] Work with [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) to create Netlify site
+- [ ] Provide branch name: `release-[current-release]`
+- [ ] Configure site settings:
+  - Site name: `k8s-v[current-release]` (e.g., k8s-v1-20)
+  - Custom domain: `v[current-release].docs.kubernetes.io` (e.g., v1-20.docs.kubernetes.io)
+  - Take defaults for other settings (compare with existing sites if unsure)
 
-Update the Netlify configuration. You will need to work with a [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) to have them complete this task for you.
+> **Context:** Even though `[current-release]` is currently on `main`, eventually `main` will contain a newer k8s version. The `release-[current-release]` branch preserves all current release documentation as a snapshot.
 
-Log in to [Netlify](https://app.netlify.com/) and navigate to the Sites tab.
+#### Step 5: Sync Branches
 
-- Create a Netlify site that builds from `release-[current-release]` branch. Even though the `[current-release]` is currently `main` (e.g: https://kubernetes.io), eventually `main` will be a newer k8s version and we'll use the `release-[current-release]` branch to contain all prior changes - like a snapshot. (e.g https://v1-20.docs.kubernetes.io)
-  - Taking the defaults here is mostly fine
-  - When in doubt, compare it to a working example
-  - e.g, site name: k8s-v1-20
-  - e.g, custom domain: v1-20.docs.kubernetes.io
+**What:** Ensure `dev-[future-release]` and `release-[current-release]` branches are synced with `main` before release.
 
-> Note: if the `release-[current-release]` is created before the website is frozen you may need to merge in main to keep up-to-date
-> If you create the `release-[current-release]` right before freezing the k/website repo, it is less likely you need to keep the `release-[current-release]` up-to-date but always verify with the following steps:
-To merge `main` into `release-[current-release]` on your local fork:
+**Action Items:**
+- [ ] If `dev-[future-release]` behind main: create sync PR
+- [ ] If `release-[current-release]` needs sync: create sync PR ([example](https://github.com/kubernetes/website/pull/53653))
+- [ ] Review and merge both PRs manually using "Create a merge commit" method
+- [ ] 📝 **Note the commit hash** of the last commit on `release-[current-release]` (needed for tagging)
 
-```shell
-# Step 0 (if you don't already have a remote called "upstream")
-git remote add upstream https://github.com/kubernetes/website.git
-# Step 1
-git fetch upstream main
-# Step 2
-git checkout --track upstream/release-[current release]
-# Step 3
-git merge upstream/main
-# Step 4
-git checkout -b merged-main-release-[current release]
-# Step 5
-git commit -m "Merge main into release-[current release] to keep in sync"
-# Step 6
-git push origin merged-main-release-[current release]
-```
+**Git Workflow:** See [Periodically merge main](#%EF%B8%8F-periodically-merge-main-into-dev-future-release) for detailed steps
 
-Now create a pull request to merge the new branch you've made into the `release-[current-release]` branch on [k/website](https://github.com/kubernetes/website).
+> **Note:** If you create `release-[current-release]` right before freezing k/website, it's less likely to need syncing, but always verify.
 
-> Note: Make a note of the commit hash of the last commit of the `release-current-release]` branch as it will be used to tag the commit as the final commit for the snapshot.
+> **Need help?** Reach out to SIG Docs members for assistance with merge conflicts.
 
-#### Merge `main`
+#### Step 6: Final PR Review
 
-After the freeze, if the dev-[future-release] branch is behind `main`, create a PR to merge `main` into dev-[future-release].
+**What:** Ensure all critical PRs have approvals and are ready to merge on release day.
 
-[Sync](#%EF%B8%8F-periodically-merge-main-into-dev-future-release) `main` into the release-[current-release] branch the day before the release.
+**Action Items:**
+- [ ] Verify [integration branch] PR (from [Section 1.2](#12-update-release-team--access-control)) has `lgtm` and `approve`
+- [ ] Verify configuration PRs have reviews
+- [ ] Request any missing reviews from SIG Docs
 
-After review from SIG Docs, both PRs will need to be merged manually using the `Create a merge commit` method of merging.
+#### Step 7: Milestone Cleanup
 
-#### Get approvals for open PRs
+**What:** Clean up the [future release] milestone to ensure only completed or actively tracked PRs remain.
 
-At this stage, [integration branch] PR and configuration PRs should be ready to be reviewed and approved by Sig Docs.
-Request a review for all open PRs, especially the [integration branch], to make sure it can be merged on time during the
-release day.
-
-#### Review milestone
-
-Review milestone for completion and outstanding PRs. For PRs that won't make the release, change their milestone and make sure everyone is clear.
+**Action Items:**
+- [ ] Review [future release] milestone for completion
+- [ ] Move any remaining PRs to next milestone
+- [ ] Notify PR owners of milestone changes
 
 
 ## Release Day
