@@ -765,8 +765,6 @@ This PR can be merged on release day by the Docs lead.
 - Update versions list (add [future release], remove the oldest release)
 - Set `deprecated` to `true`
 
-**Detailed Instructions:** See [how-tos/runbooks.md](how-tos/runbooks.md) for complete git workflow
-
 **Example PRs:**
 - v1.29: [1.25](https://github.com/kubernetes/website/pull/44302), [1.26](https://github.com/kubernetes/website/pull/44301), [1.27](https://github.com/kubernetes/website/pull/44299), [1.28](https://github.com/kubernetes/website/pull/44298)
 - v1.35: [1.31](https://github.com/kubernetes/website/pull/53650), [1.32](https://github.com/kubernetes/website/pull/53651), [1.33](https://github.com/kubernetes/website/pull/53652), [1.34](https://github.com/kubernetes/website/pull/53654)
@@ -821,7 +819,7 @@ This PR can be merged on release day by the Docs lead.
 - [ ] Click "Create branch from main"
 - [ ] 📝 Note the last commit hash (needed for tagging)
 
-**Visual Guide:** See ![New branch creation](pics/new-branch.png) for GitHub UI reference
+![New branch creation](pics/new-branch.png)
 
 > **Note:** Creating a branch requires someone with write access to `k/website`, such as a [SIG Docs co-chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
 
@@ -846,12 +844,10 @@ This PR can be merged on release day by the Docs lead.
 **What:** Ensure `dev-[future-release]` and `release-[current-release]` branches are synced with `main` before release.
 
 **Action Items:**
-- [ ] If `dev-[future-release]` behind main: create sync PR
-- [ ] If `release-[current-release]` needs sync: create sync PR ([example](https://github.com/kubernetes/website/pull/53653))
+- [ ] If `dev-[future-release]` behind main: create sync PR ([example](https://github.com/kubernetes/website/pull/53653))
+- [ ] If `release-[current-release]` needs sync: create sync PR 
 - [ ] Review and merge both PRs manually using "Create a merge commit" method
 - [ ] 📝 **Note the commit hash** of the last commit on `release-[current-release]` (needed for tagging)
-
-**Git Workflow:** See [Periodically merge main](#%EF%B8%8F-periodically-merge-main-into-dev-future-release) for detailed steps
 
 > **Note:** If you create `release-[current-release]` right before freezing k/website, it's less likely to need syncing, but always verify.
 
@@ -872,7 +868,7 @@ This PR can be merged on release day by the Docs lead.
 
 **Action Items:**
 - [ ] Review [future release] milestone for completion
-- [ ] Move any remaining PRs to next milestone
+- [ ] For PRs that won't make the release, change their milestone and make sure everyone is clear.
 - [ ] Notify PR owners of milestone changes
 
 
