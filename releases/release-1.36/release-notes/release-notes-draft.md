@@ -101,7 +101,6 @@
 ### Failing Test
 
 - Kubelet: Fixed device plugin test failures after kubelet restart. ([#135485](https://github.com/kubernetes/kubernetes/pull/135485), [@saschagrunert](https://github.com/saschagrunert)) [SIG Node and Testing]
-- Reverted (#136796) `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3` ([#137169](https://github.com/kubernetes/kubernetes/pull/137169), [@danwinship](https://github.com/danwinship))
 
 ### Bug or Regression
 
@@ -118,7 +117,6 @@
 - Fixed `container_swap_usage_bytes` in the `/metrics/resource` endpoint to correctly report container-level swap usage instead of always reporting 0. The root cause was missing logic in `addCadvisorContainerCPUAndMemoryStats` to propagate swap stats from cadvisor to the container stats object. ([#137098](https://github.com/kubernetes/kubernetes/pull/137098), [@yuanwang04](https://github.com/yuanwang04)) [SIG Apps, Node and Testing]
 - Fixed `event_handling_duration_seconds`, `preemption_goroutines_duration_seconds`, `run_podsandbox_duration_seconds`, and `store_schedule_results_duration_seconds` metrics incorrectly recording near-zero latency values instead of actual durations, caused by premature evaluation of `SinceInSeconds(startTime)` in a deferred call. ([#135749](https://github.com/kubernetes/kubernetes/pull/135749), [@novahe](https://github.com/novahe)) [SIG Architecture, Instrumentation, Node and Scheduling]
 - Fixed `kube-proxy` log spam when all of a Service's endpoints were unready. ([#136743](https://github.com/kubernetes/kubernetes/pull/136743), [@ansilh](https://github.com/ansilh))
-- Fixed `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3`. ([#136796](https://github.com/kubernetes/kubernetes/pull/136796), [@kairosci](https://github.com/kairosci)) [SIG API Machinery, Auth and Network]
 - Fixed `kubectl delete` to properly handle deletion of multiple StatefulSet pods and exit normally. ([#135563](https://github.com/kubernetes/kubernetes/pull/135563), [@yangjunmyfm192085](https://github.com/yangjunmyfm192085)) [SIG CLI, Network and Node]
 - Fixed `kubectl describe` to correctly recognize uppercase acronyms as a single element when displaying Custom Resource field names. ([#135683](https://github.com/kubernetes/kubernetes/pull/135683), [@uozalp](https://github.com/uozalp))
 - Fixed `kubectl label` output message to display `modified` when labels are both added and removed. ([#134849](https://github.com/kubernetes/kubernetes/pull/134849), [@tchap](https://github.com/tchap))

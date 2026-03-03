@@ -1,4 +1,0 @@
-pr: 136796
-pr_body: ""
-releasenote:
-  text: Fixed `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3`.

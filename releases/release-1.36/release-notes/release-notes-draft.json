@@ -3516,30 +3516,6 @@
     "duplicate_kind": true,
     "is_mapped": true
   },
-  "136796": {
-    "commit": "04d82d95fa3c245906e0f9dfe062b4a9c0dd2048",
-    "text": "Fixed `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3`.",
-    "markdown": "Fixed `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3`. ([#136796](https://github.com/kubernetes/kubernetes/pull/136796), [@kairosci](https://github.com/kairosci)) [SIG API Machinery, Auth and Network]",
-    "author": "kairosci",
-    "author_url": "https://github.com/kairosci",
-    "pr_url": "https://github.com/kubernetes/kubernetes/pull/136796",
-    "pr_number": 136796,
-    "areas": [
-      "kube-proxy",
-      "code-generation",
-      "dependency"
-    ],
-    "kinds": [
-      "bug"
-    ],
-    "sigs": [
-      "api-machinery",
-      "auth",
-      "network"
-    ],
-    "duplicate": true,
-    "is_mapped": true
-  },
   "136802": {
     "commit": "7f890ab7ade4ecfff92cc81621216ae1b87fa827",
     "text": "Fixed a data race in the `PopulateRefs` function in `k8s.io/apiserver/pkg/cel/openapi/resolver` where concurrent goroutines could simultaneously modify shared pointer fields from a shallow-copied schema struct.",
@@ -4000,28 +3976,6 @@
     ],
     "sigs": [
       "api-machinery"
-    ],
-    "duplicate_kind": true,
-    "is_mapped": true
-  },
-  "137169": {
-    "commit": "c01e10790ab14a23ee8874b428fb0ff35bbbdef2",
-    "text": "Reverted (#136796) `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3`",
-    "markdown": "Reverted (#136796) `kube-proxy`'s nftables mode to work on systems with nft `v1.1.3` ([#137169](https://github.com/kubernetes/kubernetes/pull/137169), [@danwinship](https://github.com/danwinship))",
-    "author": "danwinship",
-    "author_url": "https://github.com/danwinship",
-    "pr_url": "https://github.com/kubernetes/kubernetes/pull/137169",
-    "pr_number": 137169,
-    "areas": [
-      "kube-proxy",
-      "dependency"
-    ],
-    "kinds": [
-      "bug",
-      "failing-test"
-    ],
-    "sigs": [
-      "network"
     ],
     "duplicate_kind": true,
     "is_mapped": true
