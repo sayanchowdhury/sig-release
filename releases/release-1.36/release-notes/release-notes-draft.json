@@ -24,7 +24,7 @@
   "130231": {
     "commit": "b2ac9e206fdd912f35f2ab5b3c5b5243303ba14b",
     "text": "Updated the `ImageLocality` scheduler plugin to consider `ImageVolume` images when scoring nodes for Pod scheduling.",
-    "markdown": "Updated the `ImageLocality` scheduler plugin to consider `ImageVolume` images when scoring nodes for Pod scheduling. ([#130231](https://github.com/kubernetes/kubernetes/pull/130231), [@Barakmor1](https://github.com/Barakmor1))  [SIG Scheduling]",
+    "markdown": "Updated the `ImageLocality` scheduler plugin to consider `ImageVolume` images when scoring nodes for Pod scheduling. ([#130231](https://github.com/kubernetes/kubernetes/pull/130231), [@Barakmor1](https://github.com/Barakmor1)) [SIG Scheduling]",
     "author": "Barakmor1",
     "author_url": "https://github.com/Barakmor1",
     "pr_url": "https://github.com/kubernetes/kubernetes/pull/130231",
